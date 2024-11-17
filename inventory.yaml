@@ -1,0 +1,16 @@
+all:
+  hosts:
+    server1:
+      ansible_host: 172.16.8.109
+      vars:
+        root_size: 20480
+        var_size: 10240
+        home_size: 10240
+        hostname: server1
+    server2:
+      ansible_host: 172.16.8.110
+      vars:
+        root_size: 30720
+        var_size: 20480
+        home_size: 10240
+        hostname: server2
