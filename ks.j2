@@ -1,0 +1,31 @@
+# kickstart.j2
+# System language and keyboard
+lang en_US.UTF-8
+keyboard us
+
+# Network settings
+network --bootproto=dhcp --hostname={{ hostname }}
+
+# Root password (hashed for security)
+rootpw --iscrypted $6$iRWAQ.N/jrXmXQ0X$FfWK1gImuirqc9yu4h0cTWJg8Jj1OeueHkoMSPP2o4879AHWAoLNqAu.yh5ZfUSRyQp7WzQu.AlfRGa.BIhSR0
+
+# Timezone
+timezone America/Chicago --isUtc
+
+# Partitioning using inventory values
+clearpart --all --initlabel
+part / --fstype="xfs" --size={{ root_size }}
+part /var --fstype="xfs" --size={{ var_size }}
+part /home --fstype="xfs" --size={{ home_size }}
+
+# Bootloader
+bootloader --location=mbr
+
+# Firewall and SELinux
+firewall --enabled --service=ssh
+selinux --enforcing
+
+# Minimal installation
+%packages
+@core
+%end
