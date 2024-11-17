@@ -1,0 +1,14 @@
+- name: Generate kickstart files for each server
+  hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Generate kickstart file from template
+      template:
+        src: ks.j2
+        dest: /var/www/html/kickstarts/{{ inventory_hostname }}-ks.cfg
+      vars:
+        root_size: "{{ vars.root_size }}"
+        var_size: "{{ vars.var_size }}"
+        home_size: "{{ vars.home_size }}"
+        hostname: "{{ inventory_hostname }}"
